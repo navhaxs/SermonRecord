@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sermon Record", "Sermon Record.csproj", "{E18EADD2-04D9-4EC1-84B2-5AFDF03CB485}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio.WaveFormRenderer", "..\lib\NAudio.WaveFormRenderer\NAudio.WaveFormRenderer.csproj", "{3EFEF2D1-5D08-46FD-AF6D-098DBE7FB3B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sermon Record WPF", "..\Sermon Record WPF\Sermon Record WPF.csproj", "{91C93640-9B57-462C-9B96-174553B0EDDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,18 @@ Global
 		{3EFEF2D1-5D08-46FD-AF6D-098DBE7FB3B4}.Release|x64.Build.0 = Release|Any CPU
 		{3EFEF2D1-5D08-46FD-AF6D-098DBE7FB3B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{3EFEF2D1-5D08-46FD-AF6D-098DBE7FB3B4}.Release|x86.Build.0 = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|x64.Build.0 = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Debug|x86.Build.0 = Debug|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|x64.ActiveCfg = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|x64.Build.0 = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{91C93640-9B57-462C-9B96-174553B0EDDD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

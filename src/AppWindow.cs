@@ -56,5 +56,10 @@ namespace Sermon_Record
                 Application.Exit();
             }
         }
+
+        private void main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

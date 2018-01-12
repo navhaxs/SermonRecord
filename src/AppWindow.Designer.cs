@@ -58,31 +58,31 @@
             // 
             this.tabMain.BackColor = System.Drawing.Color.White;
             this.tabMain.Controls.Add(this.main);
-            this.tabMain.Location = new System.Drawing.Point(4, 37);
+            this.tabMain.Location = new System.Drawing.Point(4, 28);
             this.tabMain.Margin = new System.Windows.Forms.Padding(0);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Size = new System.Drawing.Size(1314, 537);
+            this.tabMain.Size = new System.Drawing.Size(1314, 546);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "tabMain";
             // 
             // main
             // 
-            this.main.BackColor = System.Drawing.Color.White;
             this.main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main.Location = new System.Drawing.Point(0, 0);
             this.main.Margin = new System.Windows.Forms.Padding(0);
             this.main.Name = "main";
-            this.main.Size = new System.Drawing.Size(1314, 537);
+            this.main.Size = new System.Drawing.Size(1314, 546);
             this.main.TabIndex = 0;
+            this.main.Load += new System.EventHandler(this.main_Load);
             // 
             // tabPreferences
             // 
             this.tabPreferences.BackColor = System.Drawing.Color.White;
             this.tabPreferences.Controls.Add(this.preferences);
-            this.tabPreferences.Location = new System.Drawing.Point(4, 37);
+            this.tabPreferences.Location = new System.Drawing.Point(4, 28);
             this.tabPreferences.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreferences.Name = "tabPreferences";
-            this.tabPreferences.Size = new System.Drawing.Size(1314, 537);
+            this.tabPreferences.Size = new System.Drawing.Size(1314, 546);
             this.tabPreferences.TabIndex = 1;
             this.tabPreferences.Text = "tabPreferences";
             // 
@@ -92,7 +92,7 @@
             this.preferences.Dock = System.Windows.Forms.DockStyle.Fill;
             this.preferences.Location = new System.Drawing.Point(0, 0);
             this.preferences.Name = "preferences";
-            this.preferences.Size = new System.Drawing.Size(1314, 537);
+            this.preferences.Size = new System.Drawing.Size(1314, 546);
             this.preferences.TabIndex = 0;
             // 
             // AppWindow
