@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Sermon_Record"
-             StartupUri="MainWindow.xaml" Exit="Application_Exit" Startup="Application_Startup">
+             StartupUri="MainWindow.xaml" Exit="Application_Exit" Startup="Application_Startup" DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
 
         <!---->
@@ -16,8 +16,10 @@
                             <Viewbox>
                                 <Grid>
 
-                                    <Ellipse x:Name="inside" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeLineJoin="Round" Opacity="1" Fill="White"   />
-                                    <Ellipse x:Name="ellipse" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeThickness="15" StrokeLineJoin="Round" Opacity="0" Stroke="{TemplateBinding Foreground}" Fill="#00000000" />
+                                    <Ellipse x:Name="inside" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeLineJoin="Round" Opacity="1" Fill="{TemplateBinding Background}"   />
+                                    
+                                    <Ellipse x:Name="inside_overlay" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeLineJoin="Round" Opacity="0" Fill="White"   />
+                                    <Ellipse x:Name="ellipse" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeThickness="15" StrokeLineJoin="Round" Opacity="0" Stroke="Black" Fill="#00000000" />
 
 
                                 </Grid>
@@ -30,30 +32,39 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True" />
                             <!--<Trigger Property="IsDefaulted" Value="True" />-->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="ellipse" Property="Opacity" Value=".8" />
-                                    <Setter TargetName="inside" Property="Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect BlurRadius="50" ShadowDepth="0" RenderingBias="Quality"  Color="White" Opacity=".5" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="inside" Property="Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect BlurRadius="50" ShadowDepth="0" RenderingBias="Quality"  Color="White" Opacity=".75" />
-                                    </Setter.Value>
-                                </Setter>
-                                <!--<Setter TargetName="arrow" Property="Effect">
+        <Trigger Property="IsEnabled" Value="False">
+            <Setter TargetName="inside_overlay" Property="Opacity" Value=".4" />
+            <Setter TargetName="inside" Property="Fill" >
+                <Setter.Value>
+                    <SolidColorBrush Color="Gray" />
+                </Setter.Value>
+            </Setter>
+
+        </Trigger>
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter TargetName="inside_overlay" Property="Opacity" Value=".4" />
+            <Setter TargetName="inside" Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="50" ShadowDepth="0" RenderingBias="Quality"  Color="White" Opacity=".5" />
+                </Setter.Value>
+            </Setter>
+        </Trigger>
+        <Trigger Property="IsPressed" Value="True">
+            <Setter TargetName="inside" Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="50" ShadowDepth="0" RenderingBias="Quality"  Color="White" Opacity=".75" />
+                </Setter.Value>
+            </Setter>
+            <!--<Setter TargetName="arrow" Property="Effect">
                                     <Setter.Value>
                                         <BlurEffect Radius="30" RenderingBias="Quality" />
                                     </Setter.Value>
                                 </Setter>-->
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        </Trigger>
+        </ControlTemplate.Triggers>
+        </ControlTemplate>
+        </Setter.Value>
+        </Setter>
         </Style>
 
         <Style x:Key="arrowBack" TargetType="{x:Type Button}">
@@ -62,14 +73,14 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
 
-                            
+
                             <Viewbox>
                                 <Grid>
 
                                     <Ellipse x:Name="inside" Width="150" Height="150" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeLineJoin="Round" Opacity="1" Fill="White"   />
                                     <!--<Ellipse x:Name="ellipse" Width="200" Height="200" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeThickness="15" StrokeLineJoin="Round" Opacity=".6" Stroke="{TemplateBinding Foreground}" Fill="#00000000" />-->
 
-                                    
+
                                 </Grid>
                             </Viewbox>
 
@@ -114,8 +125,8 @@
 
         <Style x:Key="MetroButton" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
-            <Setter Property="BorderBrush" Value="#EEEEEEEE"/>
-            <Setter Property="Background" Value="#EEEEEEEE"/>
+            <Setter Property="BorderBrush" Value="#EECCCCCC" />
+            <Setter Property="Background" Value="#EECCCCCC"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -144,7 +155,7 @@
                                 <Setter Property="Margin" Value="2 1" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="LightGray"/>
+                                <Setter Property="BorderBrush" Value="#FF7A7A7A" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground" Value="#ADADAD"/>
@@ -155,11 +166,11 @@
             </Setter>
         </Style>
 
-        <Style TargetType="{x:Type ProgressBar}" x:Key="progressbarHorizontalVU">
+        <Style TargetType="{x:Type ProgressBar}" x:Key="progressbarVU">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
-                        <Grid MinHeight="14" MinWidth="200">
+                        <Grid x:Name="TemplateRoot">
                             <Rectangle Name="PART_Track" Stroke="#888888" StrokeThickness="1">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -169,12 +180,21 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <DockPanel Margin="1">
+                            <DockPanel Margin="0">
                                 <Rectangle Name="PART_Indicator">
                                 </Rectangle>
-                                <Rectangle Name="Mask" MinWidth="{TemplateBinding Width}" Fill="#C0C0C0"/>
+                                <Rectangle Name="Mask" MinHeight="{TemplateBinding Height}" Fill="#C0C0C0"/>
                             </DockPanel>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

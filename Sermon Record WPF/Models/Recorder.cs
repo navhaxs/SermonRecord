@@ -22,25 +22,43 @@ namespace Sermon_Record.UTIL
         public Recorder()
         {
             ElapsedTimer.Elapsed += timer_Elapsed;
-
         }
 
         #region Recorder
 
         public static DateTime StartTime;
 
-        private static readonly EventHandler<WaveInEventArgs> WriteEvent = (s, e) =>
-        {
-            _writer.Write(e.Buffer, 0, e.BytesRecorded);
-        };
+        //private readonly EventHandler<WaveInEventArgs> WriteEvent;
 
-        public delegate void RecordingStateChangedEvent (bool isRecording);
+        //private void HandleWriteEvent (s, e) =>
+        //{
+        //   
+        //};
+
+    public delegate void RecordingStateChangedEvent (RecorderState recordingState);
         public static event RecordingStateChangedEvent RecordingStateChanged;
 
         private static WaveFileWriter _writer;
 
-        private bool _IsRecording;
-        public bool IsRecording { get {
+        public enum RecorderState
+        {
+            Stopped = 0,
+            Recording = 1,
+            Paused = 2
+        }
+
+        private RecorderState _IsRecording = RecorderState.Stopped;
+
+        public bool IsRecording
+        {
+            get
+            {
+                if (_IsRecording == RecorderState.Stopped) return false;
+                return true;
+            }
+        }
+
+        public RecorderState MyRecordingState { get {
                 return _IsRecording;
             }
             set
@@ -53,10 +71,13 @@ namespace Sermon_Record.UTIL
                 RecordingStateChanged(_IsRecording);
             }
         }
-        public static string FilePath => _writer.Filename;
-        public static long FileSize => _writer.Position;
-        public static string FileSizeF()
+        public string FileName;
+        public string FilePath => _writer?.Filename;
+        public long FileSize => _writer.Position;
+        public string FileSizeF()
         {
+            if (_writer == null) return "0MB";
+
             string[] suf = {"B", "KB", "MB", "GB", "TB", "PB", "EB"};
             if (FileSize == 0)
                 return "0" + suf[0];
@@ -101,8 +122,14 @@ namespace Sermon_Record.UTIL
 
         public void Cancel()
         {
-            if (IsRecording && Stop())
-                File.Delete(FilePath);
+            Stop();
+            File.Delete(FilePath);
+        }
+
+        public void Reset()
+        {
+            ElapsedTime = 0;
+            OnPropertyChanged("GetElapsedTimeFormatted");
         }
 
         public bool Record()
@@ -110,12 +137,8 @@ namespace Sermon_Record.UTIL
             if (!AudioDevice.IsOpen) return false;
             StartTime = DateTime.UtcNow;
 
-            _writer = new WaveFileWriter(Path.Combine(appPreferences.TempLocation, "sermonRecord_" +
-                                                                                  (StartTime - new DateTime(1970, 1,
-                                                                                       1, 0, 0, 0, DateTimeKind.Utc))
-                                                                                  .TotalSeconds.ToString()
-                                                                                  .Split('.')[0] +
-                                                                                  ".wav"),
+            FileName = "sermonRecord_" + (StartTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds.ToString().Split('.')[0];
+            _writer = new WaveFileWriter(Path.Combine(appPreferences.TempLocation, FileName + ".wav"),
                 AudioDevice.waveIn.WaveFormat);
 
             AudioDevice.waveIn.DataAvailable += WriteEvent;
@@ -125,29 +148,42 @@ namespace Sermon_Record.UTIL
 
             ElapsedTimer.Start();
 
-            IsRecording = true;
+            MyRecordingState = RecorderState.Recording;
             Debug.Print("Recording started");
             return true;
         }
 
-        public bool Stop()
+        private void WriteEvent(object sender, WaveInEventArgs e)
+        {
+            if (MyRecordingState == RecorderState.Recording)
+                _writer.Write(e.Buffer, 0, e.BytesRecorded);
+        }
+
+        public void Pause()
+        {
+            switch (MyRecordingState)
+            {
+                case RecorderState.Recording:
+                    MyRecordingState = RecorderState.Paused;
+                    break;
+                default:
+                    break;
+            };
+        }
+
+        public void Stop()
         {
             ElapsedTimer.Stop();
 
             if (IsRecording)
             {
-
-
                 AudioDevice.waveIn.DataAvailable -= WriteEvent;
-                Debug.Print("DISPOSE WRITER");
 
+                _writer.Close();
                 _writer.Dispose();
-
-                IsRecording = false;
-                Debug.Print("Recording stopped");
-                return true;
+                MyRecordingState = RecorderState.Stopped;
             }
-            return false;
+
         }
 
         #endregion Recording Functions

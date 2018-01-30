@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Sermon_Record.UTIL;
 
 namespace Sermon_Record
 {
@@ -17,6 +19,8 @@ namespace Sermon_Record
         public AppPreferences Options;
         public UTIL.Recorder Recorder;
         public UTIL.AudioDevice AudioDevice;
+        public OverlayWindow overlayWnd;
+        public MainWindow mainWnd;
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
@@ -27,7 +31,8 @@ namespace Sermon_Record
         {
             loadAppPrefs();
             Recorder = new UTIL.Recorder();
-            AudioDevice = new UTIL.AudioDevice();
+            AudioDevice = new UTIL.AudioDevice();        
+            overlayWnd = new OverlayWindow();
         }
 
         #region "Application preferences"
@@ -35,25 +40,33 @@ namespace Sermon_Record
 
         private void loadAppPrefs()
         {
-            if (!System.IO.File.Exists(CONFIG_FILE))
+            if (!File.Exists(CONFIG_FILE))
             {
                 Options = new AppPreferences();
-                return;
+            } else {
+                System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(AppPreferences));
+                StreamReader file = new StreamReader(CONFIG_FILE);
+                Options = (AppPreferences)reader.Deserialize(file) ?? new AppPreferences();
+                file.Close();
             }
-
-            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(AppPreferences));
-            System.IO.StreamReader file = new System.IO.StreamReader(CONFIG_FILE);
-            Options = (AppPreferences)reader.Deserialize(file) ?? new AppPreferences();
-            file.Close();
+            if (Options.Services == null) Options.Services = new List<Service> {
+                new Service { Name = "SWEC Kingsgrove 11am English" }
+            };
+            if (!Directory.Exists(Options.TempLocation)) Options.TempLocation = Path.GetTempPath();
         }
 
         public void saveAppPrefs()
         {
             var writer = new System.Xml.Serialization.XmlSerializer(typeof(AppPreferences));
-            var wfile = new System.IO.StreamWriter(CONFIG_FILE);
+            var wfile = new StreamWriter(CONFIG_FILE);
             writer.Serialize(wfile, Options);
             wfile.Close();
         }
         #endregion
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            CrashHelpMe.CreateCrashReport(e.Exception);
+        }
     }
 }

@@ -35,7 +35,20 @@ namespace Sermon_Record
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
+
+
         }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((App)Application.Current).AudioDevice.Open();
+            //((App)Application.Current).overlayWnd.Owner = this;
+            ((App)Application.Current).overlayWnd.Show();
+            ((App)Application.Current).mainWnd = this;
+        }
+
+        int tmr = 0;
 
         void timer_Tick(object sender, EventArgs e)
         {
@@ -54,11 +67,19 @@ namespace Sermon_Record
             {
                 //TODO: weak singal
                 lblMicProblem.Visibility = Visibility.Visible;
+
+                if (!myrecorder.IsRecording) recordButton.IsEnabled = false;
             } else
             {
                 lblMicProblem.Visibility = Visibility.Collapsed;
+                recordButton.IsEnabled = true;
             }
 
+            tmr++;
+            if (tmr % 200 == 0)
+            {
+                BufferFileSizeText.Text = myrecorder.FileSizeF();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -69,46 +90,146 @@ namespace Sermon_Record
             if (recordButton.IsChecked == false)
             {
 
-                animation = this.FindResource("animateBackgroundReturn") as Storyboard;
-                this.BeginStoryboard(animation);
+                {
+                    animation = this.FindResource("animateBackgroundReturn") as Storyboard;
+                    this.BeginStoryboard(animation);
+                }
 
                 myrecorder.Stop();
 
+                ((App)Application.Current).overlayWnd.Hide();
                 this.Visibility = Visibility.Hidden;
-                var deleteme = new PostWindow();
-                deleteme.ShowDialog();
-                this.Visibility = Visibility.Visible;
+
+                try
+                {
+                    var p = new PostWindow();
+                    p.ShowDialog();
+
+                    myrecorder.Reset();
+
+                    var x = new System.Windows.Shell.TaskbarItemInfo();
+                    x.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+                    this.TaskbarItemInfo = x;
+
+                    this.Visibility = Visibility.Visible;
+                    ((App)Application.Current).overlayWnd.Show();
+
+                } catch (Exception ex)
+                {
+                    CrashHelpMe.CreateCrashReport(ex);
+
+                    {
+
+
+
+                        try
+                        {
+                            if (System.IO.File.Exists(myrecorder.FilePath))
+                            {
+
+                                var emergency_wav = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop), myrecorder.FileName + ".wav");
+                                System.IO.File.Copy(myrecorder.FilePath, emergency_wav);
+
+                                var x1 = new SpecialMessageBox();
+                                x1.ShowMessage(this, "Unexpected error", "Due to an error, the MP3 may not have been saved.", String.Format("The app ran into a problem. As a precaution, the recording WAV file has been copied to your Desktop. You can continue editing the WAV file in Audacity, etc. from there.\n{0}", ex.Message));
+
+                                System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + emergency_wav + "\"");
+
+                            }
+                            else
+                            {
+                                var x1 = new SpecialMessageBox();
+                                x1.ShowMessage(this, "Unexpected error", "Due to an error, the recording seems to have failed.", String.Format("The app ran into a problem. The WAV file may have failed to record.\n{0}", ex.Message));
+                                System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + ((App)Application.Current).Options.TempLocation + "\"");
+
+                            }
+
+                        }
+                        catch (Exception ex2)
+                        {
+                            var x1 = new SpecialMessageBox();
+                            x1.ShowMessage(this, "Unexpected error", "Due to an error, the MP3 may not have been saved.", String.Format("The app ran into a problem:\n{0}", ex2.Message));
+
+                            System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + myrecorder.FilePath + "\"");
+                        }
+
+                    }
+                    Close();
+                }
+
 
             }
             else
             {
+                {
+                    animation = this.FindResource("animateBackground") as Storyboard;
+                    this.BeginStoryboard(animation);
+                }
 
-                animation = this.FindResource("animateBackground") as Storyboard;
-                this.BeginStoryboard(animation);
-
+                {
+                    
+                    Dispatcher.Invoke(DispatcherPriority.Normal, (Action)delegate () {
+                        OverlayWindow ow = ((App)Application.Current).overlayWnd;
+                        ow.animateBlink.Stop(); });
+                    
+                }
+                
                 myrecorder.Record();
+
+                var x = new System.Windows.Shell.TaskbarItemInfo();
+                x.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Error;
+                x.ProgressValue = 1;
+                this.TaskbarItemInfo = x;
+
+                if (((App)Application.Current).Options.AutoMinimise)
+                    this.WindowState = WindowState.Minimized;
             }
-
-
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((App)Application.Current).AudioDevice.Open();
-        }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Setup_Button_Click(object sender, RoutedEventArgs e)
         {
-
             // Warning: This will interrupt recording
+            // So only allow setup when Stopped
 
             ((App)Application.Current).AudioDevice.Close();
 
-
             var p = new PrefWindow();
+            p.Owner = this;
             p.ShowDialog();
 
             ((App)Application.Current).AudioDevice.Open();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (myrecorder.IsRecording)
+            {
+                if (MessageBox.Show("Are you sure you want to stop and discard the entire recording? It will be lost forever!", "Discard recording", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    myrecorder.Stop();
+
+                    System.IO.File.Delete(myrecorder.FilePath);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            ((App)Application.Current).overlayWnd.Close();
+
+        }
+
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Topmost = true;
+        }
+
+        private void pinBtn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Topmost = false;
+        }
+
     }
 }
