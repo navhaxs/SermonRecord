@@ -19,7 +19,6 @@ namespace Sermon_Record
         public int RecordingChannels = 1;
         public int RecordingDepth = 32;
         public string RecordingDevice = "";
-        //public string SaveLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public int RecordingRate = 48000;
         public string TempLocation = Path.GetTempPath();
         public bool AutoMinimise = true;
@@ -29,8 +28,8 @@ namespace Sermon_Record
 
     public class Service
     {
-        public string Name = "11am Church English";
-        public string CloudSaveLocation = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Google Drive\Sermon MP3\{SERVICE}\");
+        public string Name = "Kingsgrove 11am";
+        public string CloudSaveLocation = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Google Drive\Sermon MP3s\{SERVICE}\");
         public string MyPCSaveLocation = @"D:\Sermons\{YEAR}\{SERVICE}\";
 
         [XmlIgnore]

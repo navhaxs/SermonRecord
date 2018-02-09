@@ -50,7 +50,7 @@ namespace Sermon_Record
                 file.Close();
             }
             if (Options.Services == null) Options.Services = new List<Service> {
-                new Service { Name = "SWEC Kingsgrove 11am English" }
+                new Service { Name = "Kingsgrove 11am" }
             };
             if (!Directory.Exists(Options.TempLocation)) Options.TempLocation = Path.GetTempPath();
         }

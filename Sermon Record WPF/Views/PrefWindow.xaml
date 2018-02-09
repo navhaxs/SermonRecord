@@ -10,11 +10,7 @@
         <Border DockPanel.Dock="Top" BorderBrush="#FFF36969" BorderThickness="0,0,0,0" >
             <DockPanel >
                 <DockPanel.Background>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="#FF1E79A4" Offset="0.008"/>
-                        <GradientStop Color="#FF60B3D7" Offset="1"/>
-                        <GradientStop Color="#FF2AA3DC" Offset="0.532"/>
-                    </LinearGradientBrush>
+                    <SolidColorBrush Color="#383838" />
                 </DockPanel.Background>
 
                 <Viewbox Height="64" DockPanel.Dock="Left">

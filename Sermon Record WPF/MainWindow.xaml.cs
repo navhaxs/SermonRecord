@@ -119,9 +119,6 @@ namespace Sermon_Record
                     CrashHelpMe.CreateCrashReport(ex);
 
                     {
-
-
-
                         try
                         {
                             if (System.IO.File.Exists(myrecorder.FilePath))

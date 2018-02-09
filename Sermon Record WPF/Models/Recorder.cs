@@ -135,9 +135,9 @@ namespace Sermon_Record.UTIL
         public bool Record()
         {
             if (!AudioDevice.IsOpen) return false;
-            StartTime = DateTime.UtcNow;
+            StartTime = DateTime.Now;
 
-            FileName = "sermonRecord_" + (StartTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds.ToString().Split('.')[0];
+            FileName = "sermon_" + StartTime.ToString("yyyyMMdd");
             _writer = new WaveFileWriter(Path.Combine(appPreferences.TempLocation, FileName + ".wav"),
                 AudioDevice.waveIn.WaveFormat);
 

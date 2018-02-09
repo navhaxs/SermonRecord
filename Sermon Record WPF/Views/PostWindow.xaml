@@ -43,8 +43,8 @@
                 <Hyperlink Foreground="#FF00A0FF">Advanced encoding options</Hyperlink>-->
             </TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{StaticResource MetroButton}" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Padding="20,10" Click="Button_Click_1" MinWidth="120" IsCancel="True" />
-                <Button  IsEnabled="{Binding IsIndeterminate, ElementName=progressbarExport, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
+                <Button TabIndex="31" Style="{StaticResource MetroButton}" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Padding="20,10" Click="Button_Click_1" MinWidth="120" IsCancel="True" />
+                <Button TabIndex="32" IsEnabled="{Binding IsIndeterminate, ElementName=progressbarExport, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}"
                     Style="{StaticResource MetroButton}" Content="Finish and save MP3" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Bottom" Padding="20,10" Click="Button_Click" IsDefault="True" />
             </StackPanel>
         </Grid>
@@ -66,7 +66,7 @@
                 <Label Grid.Row="1" Content="Sync to Google Drive" Grid.ColumnSpan="2" Margin="0,0,544.6,0.2" Grid.RowSpan="2" />
 
                 <Grid Grid.Row="1" Grid.Column="1" Margin="0">
-                    <TextBox x:Name="MP3CloudPathTextBox" IsEnabled="False" VerticalContentAlignment="Center" />
+                <TextBox TabIndex="21" x:Name="MP3CloudPathTextBox" IsEnabled="False" VerticalContentAlignment="Center" />
                     <TextBlock IsHitTestVisible="False" Text="e.g. Path to a folder in Google Drive, or empty" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -84,7 +84,7 @@
                 <Label Grid.Row="3"  Grid.Column="0" Content="Archive on this PC" Margin="0" Grid.RowSpan="2" />
                 <Grid Grid.Row="3" Grid.Column="1" >
 
-                    <TextBox x:Name="MP3LocalPathTextBox" IsEnabled="False" VerticalContentAlignment="Center"  />
+                <TextBox TabIndex="22" x:Name="MP3LocalPathTextBox" IsEnabled="False" VerticalContentAlignment="Center"  />
                     <TextBlock IsHitTestVisible="False" Text="e.g. Path to a folder on this PC, or empty" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -100,7 +100,7 @@
 
                 </Grid>
 
-                <TextBlock x:Name="ManualEditSaveLocationLink"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,6,0,0" Grid.Column="1"><Hyperlink Foreground="#FF00A0FF" Click="Hyperlink_Click_1"><Run Text="Change save location"/></Hyperlink><!--<LineBreak />
+            <TextBlock  x:Name="ManualEditSaveLocationLink"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Grid.Column="1"><Hyperlink Foreground="#FF00A0FF" Click="Hyperlink_Click_1"><Run Text="Change save location"/></Hyperlink><!--<LineBreak />
                 <Hyperlink Foreground="#FF00A0FF">Advanced encoding options</Hyperlink>--></TextBlock>
 
             </Grid>
@@ -115,7 +115,7 @@
                         </Style>
                     </StackPanel.Resources>
 
-                    <Label Content="Fill in the sermon details" FontWeight="Bold" FontSize="18" Foreground="#FF2AA3DC" />
+                    <TextBlock Text="Fill in the sermon details" FontWeight="Bold" FontSize="18" Foreground="#FF2AA3DC" Margin="0,0,0,10" />
 
                     <local:LabelFieldDecorator FieldLabelText="" IsTabStop="False" Margin="0" >
                         <Grid>
@@ -159,7 +159,7 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <TextBox Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxTitle" Text="{Binding mypostrecord._title, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
+                            <TextBox TabIndex="10" Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxTitle" Text="{Binding mypostrecord._title, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
                         </Grid>
                     </local:LabelFieldDecorator>
 
@@ -177,7 +177,7 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
-                            <TextBox Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxSeries" Text="{Binding mypostrecord._series, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
+                                <TextBox TabIndex="11" Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxSeries" Text="{Binding mypostrecord._series, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}"/>
 
                         </Grid>
                     </local:LabelFieldDecorator>
@@ -196,7 +196,7 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
-                            <TextBox Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxPassage" Text="{Binding mypostrecord._passage, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
+                                <TextBox TabIndex="12" Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxPassage" Text="{Binding mypostrecord._passage, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
                         </Grid>
                     </local:LabelFieldDecorator>
 
@@ -215,7 +215,7 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <TextBox Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxSpeaker" Text="{Binding mypostrecord._speaker, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
+                                <TextBox TabIndex="13" Background="{x:Null}" BorderThickness="0 0 0 2" VerticalContentAlignment="Center" x:Name="textboxSpeaker" Text="{Binding mypostrecord._speaker, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
                         </Grid>
                     </local:LabelFieldDecorator>
 

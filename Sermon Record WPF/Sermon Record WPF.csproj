@@ -7,7 +7,7 @@
     <ProjectGuid>{91C93640-9B57-462C-9B96-174553B0EDDD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sermon_Record</RootNamespace>
-    <AssemblyName>Sermon Record WPF</AssemblyName>
+    <AssemblyName>SermonRecord</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -39,7 +39,7 @@
     <StartupObject>Sermon_Record.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
@@ -190,8 +190,8 @@
     <Resource Include="Microphone_96px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
     <None Include="FodyWeavers.xml" />
+    <Resource Include="app.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.ComponentModel;
 
 namespace Sermon_Record.Models
 {
@@ -15,6 +16,7 @@ namespace Sermon_Record.Models
         static AppPreferences appPreferences = ((App)Application.Current).Options;
         Recorder myrecorder = ((App)Application.Current).Recorder;
 
+        private readonly BackgroundWorker worker = new BackgroundWorker();
         public PostRecord(Window _parent)
         {
             parent = _parent;
@@ -51,12 +53,26 @@ namespace Sermon_Record.Models
                 return false;
             }
 
-            string saveLocation = System.IO.Path.Combine(appPreferences.TempLocation, tempFilename);
+            // path to the temporary location where the raw recording is saved (i.e. the WAV file),
+            // not including the file extension.
+            string tempRecordingPath = System.IO.Path.Combine(appPreferences.TempLocation, tempFilename);
 
             //if (!_usingCustomPath && File.Exists(saveLocation.Text) &&
             //    MessageBox.Show("A file with the same name exists, overwrite?", "File exists", MessageBoxButtons.YesNo,
             //        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No) return;
             //btnSave.Enabled = false;
+            foreach (var p in saveLocationList)
+            {
+                if (p != "") {
+                    var testFile = System.IO.Path.Combine(p, tempFilename + ".mp3");
+                    if (System.IO.File.Exists(testFile)) {
+                        var x1 = new SpecialMessageBox();
+                        x1.ShowMessage(parent, "Error", "Sermon not saved.", String.Format("The MP3 export was aborted because the file already exists at the save location:\n\n\"" + testFile + "\""));
+                        return false;
+                    }
+                }
+            }
+
             var tag = new ID3TagData
             {
                 Title = _title.Trim(),
@@ -80,7 +96,7 @@ namespace Sermon_Record.Models
                 Ratio = 4,
                 MakeUpGain = -3
             })
-            using (var writer = new LameMP3FileWriter(saveLocation + ".compressed.mp3", inputWave.WaveFormat,
+            using (var writer = new LameMP3FileWriter(tempRecordingPath + ".compressed.mp3", inputWave.WaveFormat,
                 LAMEPreset.MEDIUM,
                 tag))
             {
@@ -115,20 +131,19 @@ namespace Sermon_Record.Models
             }
 
             using (var inputWave = new WaveFileReader(myrecorder.FilePath))
-            using (var writer = new LameMP3FileWriter(saveLocation + ".mp3", inputWave.WaveFormat, LAMEPreset.MEDIUM,
-                tag))
+            using (var writer = new LameMP3FileWriter(tempRecordingPath + ".mp3", inputWave.WaveFormat, LAMEPreset.MEDIUM, tag))
             {
                 inputWave.CopyTo(writer);
             }
 
             foreach (var p in saveLocationList)
             {
-                if (p != "") System.IO.File.Copy(saveLocation + ".compressed.mp3", System.IO.Path.Combine(p, tempFilename + ".mp3"));
+                if (p != "") System.IO.File.Copy(tempRecordingPath + ".compressed.mp3", System.IO.Path.Combine(p, tempFilename + ".mp3"));
             }
 
             // Cleanup
-            System.IO.File.Delete(saveLocation + ".mp3");
-            System.IO.File.Delete(saveLocation + ".compressed.mp3");
+            System.IO.File.Delete(tempRecordingPath + ".mp3");
+            System.IO.File.Delete(tempRecordingPath + ".compressed.mp3");
 
             return true;
         }
