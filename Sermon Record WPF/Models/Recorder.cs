@@ -42,13 +42,16 @@ namespace Sermon_Record.UTIL
 
         public enum RecorderState
         {
-            Stopped = 0,
-            Recording = 1,
-            Paused = 2
+            Stopped = 0, // not started ('stopped pre recording')
+            Recording = 1, // recording
+            Paused = 2, // recording, but paused
+            Done = 3 // stopped post recording
         }
 
         private RecorderState _IsRecording = RecorderState.Stopped;
 
+        #region "Getters for UI states"
+        
         public bool IsRecording
         {
             get
@@ -57,6 +60,25 @@ namespace Sermon_Record.UTIL
                 return true;
             }
         }
+
+        public bool IsStopped
+        {
+            get
+            {
+                if (_IsRecording == RecorderState.Stopped) return true;
+                return false;
+            }
+        }
+
+        public bool IsDone
+        {
+            get
+            {
+                if (_IsRecording == RecorderState.Done) return true;
+                return false;
+            }
+        }
+        #endregion
 
         public RecorderState MyRecordingState { get {
                 return _IsRecording;

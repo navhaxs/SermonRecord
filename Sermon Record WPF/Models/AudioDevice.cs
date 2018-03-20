@@ -49,9 +49,17 @@ namespace Sermon_Record.UTIL
             };
 
             waveIn.DataAvailable += updatePeak;
-            waveIn.StartRecording();
-            IsOpen = true;
-            Debug.Print("Audio device opened");
+
+            try
+            {
+                waveIn.StartRecording();
+                IsOpen = true;
+                Debug.Print("Audio device opened");
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error opening audio device - perhaps invalid audio settings");
+            }
 
             return true;
         }

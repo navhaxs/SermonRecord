@@ -26,11 +26,19 @@ namespace Sermon_Record
         public List<Service> Services;
     }
 
+    public enum FileFormat
+    {
+        MP3,
+        WAV
+    }
+
     public class Service
     {
         public string Name = "Kingsgrove 11am";
         public string CloudSaveLocation = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Google Drive\Sermon MP3s\{SERVICE}\");
+        public FileFormat CloudSaveFormat = FileFormat.MP3;
         public string MyPCSaveLocation = @"D:\Sermons\{YEAR}\{SERVICE}\";
+        public FileFormat MyPCSaveFormat = FileFormat.MP3;
 
         [XmlIgnore]
         public string DefaultCloudSaveLocation

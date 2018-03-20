@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="Setup" Height="500" Width="530" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <DockPanel>
-        <Border DockPanel.Dock="Top" BorderBrush="#FFF36969" BorderThickness="0,0,0,0" >
-            <DockPanel >
+        
+        <Border x:Name="FormHeader"
+                DockPanel.Dock="Top">
+            <DockPanel>
                 <DockPanel.Background>
                     <SolidColorBrush Color="#383838" />
                 </DockPanel.Background>
@@ -25,111 +27,130 @@
             </DockPanel>
         </Border>
 
-        <Grid DockPanel.Dock="Bottom" Margin="10">
-            <Label Content="SWEC / Feb 2018" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{StaticResource MetroButton}" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="104" Height="34" IsCancel="True"/>
-                <Button Style="{StaticResource MetroButton}" Content="Save changes" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Bottom" Width="107" Height="34" Click="Button_Click" IsDefault="True"/>
-            </StackPanel>
-
+        <Grid x:Name="FormFooter"
+              DockPanel.Dock="Bottom">
+            <Grid Margin="10">
+                <Label Content="SWEC / Mar 2018"
+                       VerticalAlignment="Bottom"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MetroButton}" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="104" Height="34" IsCancel="True"/>
+                    <Button Style="{StaticResource MetroButton}" Content="Save changes" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Bottom" Width="107" Height="34" Click="Button_Click" IsDefault="True"/>
+                </StackPanel>
+            </Grid>
         </Grid>
 
-        <Grid>
-
-
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Grid.IsSharedSizeScope="True" Margin="10">
+        <ScrollViewer x:Name="FormContent"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Grid.IsSharedSizeScope="True" 
+                        Margin="20 20 20 0">
+                <!-- Padding between items -->
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type Grid}">
                         <Setter Property="Margin" Value="0,5,0,5"/>
                     </Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="FontSize" Value="15"/>
+                    </Style>
                 </StackPanel.Resources>
 
+                <!-- Option -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="labelColumn"/>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Recording device" />
+                    <Label Content="Recording input" />
                     <ComboBox x:Name="comboboxRecordingDevice" Grid.Column="2" />
                 </Grid>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labelColumn"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="App behaviour" />
-                        <StackPanel Grid.Column="2" Margin="0,5,0,0" >
-                            <CheckBox x:Name="autoMinimise" Grid.Column="2" Content="Minimise window when recording" VerticalAlignment="Center" />
-                            <TextBlock Text="This allows the ProPresenter/PowerPoint window to maintain focus, e.g. if a wireless presenter 'clicker' is being used." TextWrapping="Wrap" FontStyle="Italic" Margin="20,5,0,0" />
-                        </StackPanel>
-                        
-                    </Grid>
-
-                    <Expander Header="Advanced" Padding="5,5" Margin="0,5,0,0" Background="#FFEEEEEE" >
+                <!-- Option -->
+                <Expander Header="Advanced" Padding="5,5" Margin="0,5,0,0" Background="#FFEEEEEE" >
                     <StackPanel>
+
+                        <!-- Option -->
                         <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labelColumn"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Sampling rate" />
-                        <ComboBox x:Name="comboboxRecordingRate" Grid.Column="2" >
-                                    <ComboBoxItem Content="44100"/>
-                                    <ComboBoxItem Content="48000"/>
-                                </ComboBox>
-                            </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labelColumn"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Bit depth" />
-                                <ComboBox x:Name="comboboxRecordingDepth" Grid.Column="2">
-                                    <ComboBoxItem Content="16"/>
-                                    <ComboBoxItem Content="24"/>
-                                    <ComboBoxItem Content="32"/>
-                                </ComboBox>
-                            </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labelColumn"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Channels" />
-                                <ComboBox x:Name="comboboxRecordingChannels" Grid.Column="2" >
-                                    <ComboBoxItem Content="1" />
-                                    <ComboBoxItem Content="2" />
-                                </ComboBox>
-                            </Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Sampling rate" />
+                            <ComboBox x:Name="comboboxRecordingRate" Grid.Column="2" >
+                                <ComboBoxItem Content="44100"/>
+                                <ComboBoxItem Content="48000"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Option -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
                             <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="labelColumn"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Buffer location" />
-                                <StackPanel Grid.Column="2" >
-                                    <TextBox x:Name="textboxTempLocation" MinHeight="25" />
-                                    <TextBlock Text="During recording, a WAV audio file will be saved at this location. The current buffer file is deleted on a clean exit." TextWrapping="Wrap" FontStyle="Italic" />
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Content="App behaviour" />
+                                <StackPanel Grid.Column="2" Margin="0,5,0,0" >
+                                    <CheckBox x:Name="autoMinimise" Grid.Column="2" Content="Minimise window when recording" VerticalAlignment="Center" />
+                                    <TextBlock Text="This allows the ProPresenter/PowerPoint window to maintain focus, e.g. if a wireless presenter 'clicker' is being used." TextWrapping="Wrap" FontStyle="Italic" Margin="20,5,0,0" />
                                 </StackPanel>
-                                
-                    </Grid>
+                            </Grid>
 
-                            <TextBlock Margin="50,20" TextWrapping="Wrap" Text="To edit the list of services and default save locations in the export screen, edit config.xml in a text editor." TextAlignment="Center" />
-                        </StackPanel>
-            </Expander>
 
-                     </StackPanel>
-            </ScrollViewer>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Bit depth" />
+                            <ComboBox x:Name="comboboxRecordingDepth" Grid.Column="2">
+                                <ComboBoxItem Content="16"/>
+                                <ComboBoxItem Content="24"/>
+                                <ComboBoxItem Content="32"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Channels" />
+                            <ComboBox x:Name="comboboxRecordingChannels" Grid.Column="2" >
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                            </ComboBox>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="labelColumn"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Buffer location" />
+                            <StackPanel Grid.Column="2" >
+                                <TextBox x:Name="textboxTempLocation" MinHeight="25" />
+                                <TextBlock Text="During recording, a WAV audio file will be saved at this location. The current buffer file is deleted on a clean exit." TextWrapping="Wrap" FontStyle="Italic" />
+                            </StackPanel>
 
-        </Grid>
+                        </Grid>
+
+                        <TextBlock Margin="50,20" TextWrapping="Wrap" Text="To edit the list of services and default save locations in the export screen, edit config.xml in a text editor." TextAlignment="Center" />
+                    </StackPanel>
+                </Expander>
+
+            </StackPanel>
+        </ScrollViewer>
 
     </DockPanel>
 </Window>

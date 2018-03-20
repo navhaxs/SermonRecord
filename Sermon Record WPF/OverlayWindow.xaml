@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sermon_Record"
         mc:Ignorable="d" AllowsTransparency="True"
-        Title="OverlayWindow" Height="40" Width="175" ResizeMode="NoResize" WindowStyle="None" Topmost="True" Foreground="White" MouseDown="Window_MouseDown" ShowInTaskbar="False" Loaded="Window_Loaded">
+        Title="OverlayWindow" Height="40" Width="190" ResizeMode="NoResize" WindowStyle="None" Topmost="True" Foreground="White" MouseDown="Window_MouseDown" ShowInTaskbar="False" Loaded="Window_Loaded" MouseUp="Window_MouseUp" MouseMove="Window_MouseMove">
     <Window.Resources>
         <Storyboard x:Key="animateBlink" Storyboard.TargetName="TextGrid" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="TextGrid"
                                     Storyboard.TargetProperty="Opacity"
-                                    From="0"
+                                    From="0.2"
                                     To="1"
-                                    Duration="0:0:1"/>
-            <DoubleAnimation Storyboard.TargetName="TextGrid"
-                                    Storyboard.TargetProperty="Opacity"
-                                    From="1"
-                                    To="1"
-                                    BeginTime="0:0:1"
                                     Duration="0:0:0.5"/>
             <DoubleAnimation Storyboard.TargetName="TextGrid"
                                     Storyboard.TargetProperty="Opacity"
                                     From="1"
-                                    To="0"
-                                    BeginTime="0:0:1.5"
-                                    Duration="0:0:1"/>
+                                    To="1"
+                                    BeginTime="0:0:0.5"
+                                    Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetName="TextGrid"
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="1"
+                                    To="0.2"
+                                    BeginTime="0:0:1.0"
+                                    Duration="0:0:0.5"/>
 
         </Storyboard>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
@@ -34,31 +34,46 @@
         False="Visible" />
     </Window.Resources>
     <Window.Background>
-        <SolidColorBrush Opacity="0.7" Color="#FF879296"/>
+        <SolidColorBrush Opacity="0.7" Color="#FF000000"/>
     </Window.Background>
-    <Viewbox>
-        <DockPanel Margin="0 0 20 0">
-            <Viewbox Margin="10" DockPanel.Dock="Left">
-                <Grid>
-                    <Viewbox Visibility="{Binding Path=myrecorder.IsRecording, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}" >
-                        <Grid Height="76" Width="76">
-                            <Ellipse Height="40" Width="40" x:Name="iconRecord" Fill="#FFFF3434" />
-                        </Grid>
-                    </Viewbox>
-                    <Viewbox Visibility="{Binding Path=myrecorder.IsRecording, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" >
+    <Viewbox Margin="0 5">
+        <DockPanel Margin="20 0">
+            <Border x:Name="TextGrid" BorderBrush="White" BorderThickness="3"  Visibility="{Binding Path=myrecorder.IsRecording, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" >
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Margin="10" DockPanel.Dock="Left">
+                    <Viewbox>
                         <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="appbar_control_pause" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
                             <Path Width="30" Height="40" Canvas.Left="23" Canvas.Top="20" Stretch="Fill" Fill="White" Data="F1 M 26.9167,23.75L 33.25,23.75L 33.25,52.25L 26.9167,52.25L 26.9167,23.75 Z M 42.75,23.75L 49.0833,23.75L 49.0833,52.25L 42.75,52.25L 42.75,23.75 Z "/>
                         </Canvas>
                     </Viewbox>
-                </Grid>
-            </Viewbox>
-            <Grid DockPanel.Dock="Left" x:Name="TextGrid">
-                <TextBlock x:Name="TimeText" Text="{Binding myrecorder.GetElapsedTimeFormatted, FallbackValue='00:00:00', Mode=OneWay}" HorizontalAlignment="Center" Foreground="White" FontSize="72" VerticalAlignment="Center" FontFamily="Consolas">
+                    </Viewbox>
+                    <TextBlock Margin="10,0,20,0" 
+                        HorizontalAlignment="Center" Foreground="White" FontSize="72" VerticalAlignment="Center" FontFamily="Consolas">STOP</TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Border Background="#FFFF3434" BorderThickness="3" Visibility="{Binding Path=myrecorder.IsRecording, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Margin="10" DockPanel.Dock="Left">
+                        <Viewbox>
+                            <Grid Height="76" Width="76">
+                                <Ellipse Height="40" Width="40" x:Name="iconRecord" Fill="White" />
+                            </Grid>
+                        </Viewbox>
+                    </Viewbox>
+                    <TextBlock Margin="10,0,20,0"
+                        HorizontalAlignment="Center" Foreground="White" FontSize="72" VerticalAlignment="Center" FontFamily="Consolas">Recording</TextBlock>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Margin="20 0 0 0" Orientation="Horizontal">
+                <TextBlock x:Name="TimeText" Text="{Binding myrecorder.GetElapsedTimeFormatted, FallbackValue='00:00:00', Mode=OneWay}"
+                           HorizontalAlignment="Center" Foreground="White" FontSize="72" VerticalAlignment="Center" FontFamily="Consolas">
                     <TextBlock.Resources>
                         <BeginStoryboard x:Key="serverAnimate" Storyboard="{StaticResource animateBlink}" />
                      </TextBlock.Resources>
                 </TextBlock>
-            </Grid>
+            </StackPanel>
         </DockPanel>
     </Viewbox>
 </Window>

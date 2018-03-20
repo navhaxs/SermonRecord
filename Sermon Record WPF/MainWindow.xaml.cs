@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Sermon_Record.UTIL;
+using static Sermon_Record.UTIL.Recorder;
 
 namespace Sermon_Record
 {
@@ -24,7 +25,7 @@ namespace Sermon_Record
     public partial class MainWindow : Window
     {
 
-        public Recorder myrecorder { get {return ((App)Application.Current).Recorder; } }
+        public Recorder myrecorder { get { return ((App)Application.Current).Recorder; } }
 
         public MainWindow()
         {
@@ -39,6 +40,7 @@ namespace Sermon_Record
 
         }
 
+        public string RecordButtonToolTip { get; set; } = "Start recording";
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -48,7 +50,7 @@ namespace Sermon_Record
             ((App)Application.Current).mainWnd = this;
         }
 
-        int tmr = 0;
+        //int tmr = 0;
 
         void timer_Tick(object sender, EventArgs e)
         {
@@ -75,10 +77,32 @@ namespace Sermon_Record
                 recordButton.IsEnabled = true;
             }
 
-            tmr++;
-            if (tmr % 200 == 0)
+            //tmr++;
+            //if (tmr % 200 == 0)
+            //{
+            //    BufferFileSizeText.Text = myrecorder.FileSizeF();
+            //}
+        }
+
+        // I don't know why you're giving me that look
+        public void updateUI()
+        {
+            switch (myrecorder.MyRecordingState)
             {
-                BufferFileSizeText.Text = myrecorder.FileSizeF();
+                case RecorderState.Recording:
+                    RecordButtonToolTip = "Stop recording";
+                    break;
+                case RecorderState.Stopped:
+                    RecordButtonToolTip = "Start recording";
+                    break;
+                case RecorderState.Done:
+                    RecordButtonToolTip = "Finish and save MP3";
+                    break;
+                case RecorderState.Paused:
+                    RecordButtonToolTip = "Resume recording";
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -97,7 +121,7 @@ namespace Sermon_Record
 
                 myrecorder.Stop();
 
-                ((App)Application.Current).overlayWnd.Hide();
+                //((App)Application.Current).overlayWnd.Hide();
                 this.Visibility = Visibility.Hidden;
 
                 try
@@ -181,6 +205,8 @@ namespace Sermon_Record
                 if (((App)Application.Current).Options.AutoMinimise)
                     this.WindowState = WindowState.Minimized;
             }
+
+            updateUI();
         }
 
 

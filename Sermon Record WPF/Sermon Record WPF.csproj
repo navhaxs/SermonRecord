@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91C93640-9B57-462C-9B96-174553B0EDDD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Sermon_Record</RootNamespace>
+    <RootNamespace>SermonRecord.OneButton</RootNamespace>
     <AssemblyName>SermonRecord</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -52,6 +52,9 @@
     <Reference Include="NAudio.Lame, Version=1.0.5.22475, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\src\packages\NAudio.Lame.1.0.7\lib\net20\NAudio.Lame.dll</HintPath>
     </Reference>
+    <Reference Include="PropertyChanged, Version=2.2.9.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\src\packages\PropertyChanged.Fody.2.2.9\lib\net452\PropertyChanged.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -91,6 +94,7 @@
     </Compile>
     <Compile Include="Util\InverseBooleanConverter.cs" />
     <Compile Include="Controls\LabelFieldDecorator.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\PostWindow.xaml.cs">
       <DependentUpon>PostWindow.xaml</DependentUpon>
     </Compile>
@@ -190,7 +194,9 @@
     <Resource Include="Microphone_96px.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="app.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -206,8 +212,8 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\src\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\src\packages\Fody.2.3.23\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Fody.2.3.23\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\src\packages\Fody.2.4.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Fody.2.4.5\build\Fody.targets'))" />
   </Target>
   <Import Project="..\src\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('..\src\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
-  <Import Project="..\src\packages\Fody.2.3.23\build\Fody.targets" Condition="Exists('..\src\packages\Fody.2.3.23\build\Fody.targets')" />
+  <Import Project="..\src\packages\Fody.2.4.5\build\Fody.targets" Condition="Exists('..\src\packages\Fody.2.4.5\build\Fody.targets')" />
 </Project>

@@ -55,7 +55,6 @@ namespace Sermon_Record
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-
             System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + myrecorder.FilePath + "\"");
         }
 
@@ -177,6 +176,13 @@ namespace Sermon_Record
         {
             updateSaveLocations();
 
+        }
+
+        private void Hyperlink_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("C:\\Program Files (x86)\\Audacity\\audacity.exe", myrecorder.FilePath);
+            var x1 = new SpecialMessageBox();
+            x1.ShowMessage(this, "Edit in Audacity", "Launching Audacity...", "Export back as a WAV once you've finished.");
         }
 
         //C:\Program Files (x86)\Audacity\audacity.exe

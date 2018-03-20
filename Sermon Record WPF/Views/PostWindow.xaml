@@ -39,8 +39,8 @@
         <Grid DockPanel.Dock="Bottom" IsEnabled="{Binding progressbarExport.IsIndeterminate, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}" Margin="20">
             <TextBlock  VerticalAlignment="Bottom">
                 <Hyperlink Foreground="#FF00A0FF" Click="Hyperlink_Click">Open temporary recording folder</Hyperlink>
-                <!--<LineBreak />
-                <Hyperlink Foreground="#FF00A0FF">Advanced encoding options</Hyperlink>-->
+                <LineBreak />
+                <Hyperlink Foreground="#FF00A0FF" Click="Hyperlink_Click_2">Make an edit in Audacity</Hyperlink>
             </TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button TabIndex="31" Style="{StaticResource MetroButton}" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Padding="20,10" Click="Button_Click_1" MinWidth="120" IsCancel="True" />
@@ -65,9 +65,18 @@
                 
                 <Label Grid.Row="1" Content="Sync to Google Drive" Grid.ColumnSpan="2" Margin="0,0,544.6,0.2" Grid.RowSpan="2" />
 
-                <Grid Grid.Row="1" Grid.Column="1" Margin="0">
+                <DockPanel Grid.Row="1" Grid.Column="1" Margin="0">
+
+                <ComboBox DockPanel.Dock="Right" SelectedIndex="0" IsEnabled="{Binding IsEnabled,ElementName=MP3CloudPathTextBox}" >
+                    <ComboBoxItem Content="MP3"/>
+                    <ComboBoxItem Content="WAV"/>
+                </ComboBox>
+
+                <Grid>
                 <TextBox TabIndex="21" x:Name="MP3CloudPathTextBox" IsEnabled="False" VerticalContentAlignment="Center" />
-                    <TextBlock IsHitTestVisible="False" Text="e.g. Path to a folder in Google Drive, or empty" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="DarkGray">
+
+
+                <TextBlock IsHitTestVisible="False" Text="e.g. Path to a folder in Google Drive, or empty" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -80,11 +89,16 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </Grid>
+            </DockPanel>
 
-                <Label Grid.Row="3"  Grid.Column="0" Content="Archive on this PC" Margin="0" Grid.RowSpan="2" />
-                <Grid Grid.Row="3" Grid.Column="1" >
-
-                <TextBox TabIndex="22" x:Name="MP3LocalPathTextBox" IsEnabled="False" VerticalContentAlignment="Center"  />
+            <Label Grid.Row="3"  Grid.Column="0" Content="Archive on this PC" Margin="0" Grid.RowSpan="2" />
+            <DockPanel Grid.Row="3" Grid.Column="1" >
+                <ComboBox DockPanel.Dock="Right" SelectedIndex="0" IsEnabled="{Binding IsEnabled, ElementName=MP3LocalPathTextBox}" >
+                    <ComboBoxItem Content="MP3"/>
+                    <ComboBoxItem Content="WAV"/>
+                </ComboBox>
+                <Grid>
+                    <TextBox TabIndex="22" x:Name="MP3LocalPathTextBox" IsEnabled="False" VerticalContentAlignment="Center"  />
                     <TextBlock IsHitTestVisible="False" Text="e.g. Path to a folder on this PC, or empty" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -97,8 +111,8 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
                 </Grid>
+            </DockPanel>
 
             <TextBlock  x:Name="ManualEditSaveLocationLink"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Grid.Column="1"><Hyperlink Foreground="#FF00A0FF" Click="Hyperlink_Click_1"><Run Text="Change save location"/></Hyperlink><!--<LineBreak />
                 <Hyperlink Foreground="#FF00A0FF">Advanced encoding options</Hyperlink>--></TextBlock>
