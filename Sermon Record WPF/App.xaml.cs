@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Sermon_Record.UTIL;
+using SermonRecord.UTIL;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     /// <summary>
     /// Interaction logic for App.xaml

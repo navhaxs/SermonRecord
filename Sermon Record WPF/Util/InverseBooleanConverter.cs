@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : IValueConverter

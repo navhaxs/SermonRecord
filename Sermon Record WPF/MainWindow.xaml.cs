@@ -14,10 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Sermon_Record.UTIL;
-using static Sermon_Record.UTIL.Recorder;
+using SermonRecord.UTIL;
+using static SermonRecord.UTIL.Recorder;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

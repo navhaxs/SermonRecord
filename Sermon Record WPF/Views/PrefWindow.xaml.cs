@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     /// <summary>
     /// Interaction logic for PrefWindow.xaml
@@ -27,6 +27,7 @@ namespace Sermon_Record
             InitializeComponent();
             comboboxRecordingDevice.ItemsSource = UTIL.AudioDevice.GetAvailableDevices();
 
+            // TODO: Model
             comboboxRecordingDevice.Text = appPreferences.RecordingDevice;
             comboboxRecordingRate.Text = appPreferences.RecordingRate.ToString();
             comboboxRecordingDepth.Text = appPreferences.RecordingDepth.ToString();
@@ -40,7 +41,7 @@ namespace Sermon_Record
             if (!Directory.Exists(appPreferences.TempLocation))
             {
                 MessageBox.Show("Buffer location does not exist. Using default.");
-                textboxTempLocation.Text = System.IO.Path.GetTempPath();
+                //textboxTempLocation.Text = System.IO.Path.GetTempPath();
             }
 
             appPreferences.RecordingDevice = comboboxRecordingDevice.Text;

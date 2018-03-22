@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
 
     public class AppPreferences

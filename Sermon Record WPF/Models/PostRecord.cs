@@ -1,15 +1,12 @@
 ﻿using NAudio.Wave;
 using NAudio.Lame;
-using Sermon_Record.UTIL;
+using SermonRecord.UTIL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
 
-namespace Sermon_Record.Models
+namespace SermonRecord.Models
 {
     public class PostRecord
     {
@@ -24,6 +21,7 @@ namespace Sermon_Record.Models
 
         private Window parent;
 
+        // TODO refactor to model?
         public string _title { get; set; }
         public string _speaker { get; set; }
         public string _series { get; set; }
@@ -147,6 +145,5 @@ namespace Sermon_Record.Models
 
             return true;
         }
-
     }
 }

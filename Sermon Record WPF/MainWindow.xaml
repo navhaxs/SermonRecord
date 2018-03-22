@@ -1,10 +1,10 @@
-﻿<Window x:Class="Sermon_Record.MainWindow"
+﻿<Window x:Class="SermonRecord.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sermon_Record"
-        xmlns:localutil="clr-namespace:Sermon_Record.UTIL"
+        xmlns:local="clr-namespace:SermonRecord"
+        xmlns:localutil="clr-namespace:SermonRecord.UTIL"
         mc:Ignorable="d"
         Title="Sermon Recorder"
         MinHeight="270" MinWidth="710" Height="270" Width="710"
@@ -149,6 +149,6 @@
                 DockPanel.Dock="Right" VerticalAlignment="Top" Margin="0 4 40 0" MinHeight="28" BorderThickness="1"
                 Style="{StaticResource MetroButton}" Padding="20,0" HorizontalAlignment="Right"
                 Visibility="{Binding IsChecked, ElementName=recordButton, Converter={StaticResource IsStopped}}"
-                Background="{x:Null}" Foreground="#FF545454" />
+                Background="LightGray"  Foreground="#FF545454" />
     </Grid>
 </Window>

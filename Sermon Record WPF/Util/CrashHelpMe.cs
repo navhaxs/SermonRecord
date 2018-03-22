@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Sermon_Record.UTIL
+namespace SermonRecord.UTIL
 {
     internal static class CrashHelpMe
     {

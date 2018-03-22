@@ -13,7 +13,7 @@ using System.Timers;
 using System.Windows;
 using NAudio.Wave;
 
-namespace Sermon_Record.UTIL
+namespace SermonRecord.UTIL
 {
     public class Recorder : INotifyPropertyChanged
     {

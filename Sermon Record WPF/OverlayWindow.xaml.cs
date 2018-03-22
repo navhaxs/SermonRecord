@@ -1,6 +1,6 @@
 ﻿//#define EXPERIMENTAL_ENABLE_CLICKTHROUGH
 
-using Sermon_Record.UTIL;
+using SermonRecord.UTIL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     /// <summary>
     /// Interaction logic for OverkayWindow.xaml

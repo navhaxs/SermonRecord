@@ -13,7 +13,7 @@ using System.Windows;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
-namespace Sermon_Record.UTIL
+namespace SermonRecord.UTIL
 {
     public class AudioDevice
     {

@@ -1,5 +1,5 @@
-﻿using Sermon_Record.Models;
-using Sermon_Record.UTIL;
+﻿using SermonRecord.Models;
+using SermonRecord.UTIL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     /// <summary>
     /// Interaction logic for PostWindow.xaml

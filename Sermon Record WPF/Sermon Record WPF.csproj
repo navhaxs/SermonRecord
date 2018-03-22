@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91C93640-9B57-462C-9B96-174553B0EDDD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SermonRecord.OneButton</RootNamespace>
+    <RootNamespace>SermonRecord</RootNamespace>
     <AssemblyName>SermonRecord</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Sermon_Record.App</StartupObject>
+    <StartupObject>SermonRecord.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
@@ -75,6 +75,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\PrefLabelFieldDecorator.cs" />
+    <Compile Include="Models\SermonMeta.cs" />
     <Compile Include="Util\CrashHelpMe.cs" />
     <Compile Include="SpecialMessageBoxExit.xaml.cs">
       <DependentUpon>SpecialMessageBoxExit.xaml</DependentUpon>
@@ -89,11 +91,11 @@
       <DependentUpon>OverlayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\BooleanConverter.cs" />
-    <Compile Include="Controls\CircularButton.xaml.cs">
+    <Compile Include="Control\CircularButton.xaml.cs">
       <DependentUpon>CircularButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\InverseBooleanConverter.cs" />
-    <Compile Include="Controls\LabelFieldDecorator.cs" />
+    <Compile Include="Control\LabelFieldDecorator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\PostWindow.xaml.cs">
       <DependentUpon>PostWindow.xaml</DependentUpon>
@@ -102,7 +104,7 @@
       <DependentUpon>PrefWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Recorder.cs" />
-    <Compile Include="Controls\RippleEffectDecorator.cs" />
+    <Compile Include="Control\RippleEffectDecorator.cs" />
     <Page Include="SpecialMessageBoxExit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,7 +133,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\CircularButton.xaml">
+    <Page Include="Control\CircularButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

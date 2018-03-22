@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SermonRecord.OneButton.Properties {
+namespace SermonRecord.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

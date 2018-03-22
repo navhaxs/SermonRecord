@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Sermon_Record
+namespace SermonRecord
 {
     public class BooleanConverter<T> : IValueConverter
     {
