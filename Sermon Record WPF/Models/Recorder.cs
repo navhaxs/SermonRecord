@@ -21,6 +21,8 @@ namespace SermonRecord.UTIL
 
         public Recorder()
         {
+            MyRecordingState = RecorderState.Stopped;
+
             ElapsedTimer.Elapsed += timer_Elapsed;
         }
 
@@ -48,7 +50,7 @@ namespace SermonRecord.UTIL
             Done = 3 // stopped post recording
         }
 
-        private RecorderState _IsRecording = RecorderState.Stopped;
+        private RecorderState _IsRecording = RecorderState.Done;
 
         #region "Getters for UI states"
         
@@ -56,8 +58,7 @@ namespace SermonRecord.UTIL
         {
             get
             {
-                if (_IsRecording == RecorderState.Stopped) return false;
-                return true;
+                return (_IsRecording == RecorderState.Recording);
             }
         }
 
@@ -65,8 +66,7 @@ namespace SermonRecord.UTIL
         {
             get
             {
-                if (_IsRecording == RecorderState.Stopped) return true;
-                return false;
+                return (_IsRecording == RecorderState.Stopped);
             }
         }
 
@@ -74,8 +74,7 @@ namespace SermonRecord.UTIL
         {
             get
             {
-                if (_IsRecording == RecorderState.Done) return true;
-                return false;
+                return (_IsRecording == RecorderState.Done);
             }
         }
         #endregion
@@ -88,6 +87,8 @@ namespace SermonRecord.UTIL
                 _IsRecording = value;
 
                 OnPropertyChanged("IsRecording");
+                OnPropertyChanged("IsStopped");
+                OnPropertyChanged("IsDone");
 
                 if (RecordingStateChanged == null) return;
                 RecordingStateChanged(_IsRecording);
